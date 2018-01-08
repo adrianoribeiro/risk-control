@@ -71,21 +71,9 @@ public class CustomerService {
 	}
 
 	private void applyRate(final Customer customer) {
-		BigDecimal rateValue = customer.getCreditLimit();
-
-		switch (customer.getRisk()) {
-		case A:
-			customer.setRate(BigDecimal.ZERO);
-			break;
-		case B:
-			customer.setRate(rateValue.multiply(new BigDecimal(0.1)));
-			break;
-		case C:
-			customer.setRate(rateValue.multiply(new BigDecimal(0.2)));
-			break;
-		default:
-			break;
-		}
+		final BigDecimal rateValue = customer.getCreditLimit();
+		
+		customer.setRate(rateValue.multiply(new BigDecimal(customer.getRisk().getRate())));
 	}
 
 	/**
